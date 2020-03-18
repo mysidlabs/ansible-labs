@@ -1,0 +1,27 @@
+---
+
+- name: "Cleanup all instances that match the target tag"
+  hosts: localhost
+  gather_facts: false
+  vars:
+    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
+
+  roles:
+    - env_check
+
+  tasks:
+
+    - name: "Terminate labeled instances"
+      ec2_instance:
+        state: absent
+        wait: false
+        filters:
+          "tag:mysidlabs_user": "{{ siduser }}"
+          "tag:mysidlabs": "1"
+
+    - name: "Delete stale hosts inventory file"
+      file:
+        path: "hosts"
+        state: absent
+...
+

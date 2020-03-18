@@ -1,0 +1,21 @@
+---
+- name: Install nginx
+  become: true
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+  when: ansible_facts['pkg_mgr'] == "apt"
+
+- name: Build nginx Configuration
+  become: true
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: Restart nginx Service
+  become: true
+  service:
+    name: nginx
+    state: restarted
+...

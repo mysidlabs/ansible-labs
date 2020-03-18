@@ -1,0 +1,19 @@
+---
+- name: Install Apache
+  become: true
+  package:
+    name: httpd
+    state: present
+
+- name: Configure Apache index.html
+  become: true
+  template:
+    src: index.html
+    dest: /var/www/html/index.html
+
+- name: Start Apache Service
+  become: true
+  service:
+    name: httpd
+    state: started
+...

@@ -1,0 +1,24 @@
+---
+- name: "Add User"
+  hosts: all
+  become: true
+  gather_facts: true
+  #  vars:
+  # siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
+
+  roles:
+    - env_check
+
+  tasks:
+
+    - name: "Ensure User Account Exists"
+      user:
+        name: "{{ siduser }}"
+        groups: adm
+
+    - name: "Add Authorized Key"
+      authorized_key:
+        user: "{{ siduser }}"
+        key: "{{ lookup('file', 'ssh-key.pub') }}"
+...
+

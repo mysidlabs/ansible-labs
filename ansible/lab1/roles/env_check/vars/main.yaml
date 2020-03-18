@@ -1,0 +1,2 @@
+aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
+siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"

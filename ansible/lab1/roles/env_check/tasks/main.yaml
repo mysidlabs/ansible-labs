@@ -1,0 +1,10 @@
+---
+- name: Confirm environment
+  assert:
+    that:
+      - siduser is defined
+      - siduser != ''
+      - aws_profile is defined
+      - aws_profile != ''
+    fail_msg: "One or more required environment variables are not set."
+...

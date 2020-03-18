@@ -1,0 +1,23 @@
+---
+
+- name: Cleanup all instances that match the target tag
+  hosts: localhost
+  gather_facts: false
+  #  vars:
+  #    aws_ssh_key_pair: mysidlabs-ssh-key-pair
+  #    security_group: ssh-http-https
+  #    vpc_subnet: subnet-049a1c13e7b423b8c
+  #    instance_type: t2.micro
+  #    image: ami-0998bf58313ab53da
+  #    region: us-east-2
+
+  tasks:
+
+    - name: Terminate labeled instances
+      ec2_instance:
+        state: absent
+        wait: false
+        filters:
+          "tag:mysidlabs": "1"
+...
+
