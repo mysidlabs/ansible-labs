@@ -1,21 +1,29 @@
 ---
-- name: Create host instance
+
+# Step 1 - Create a single EC2 instance and boot it.
+# No configuration beyond a simple boot will be done.
+
+- name: "Create host instance"
   hosts: localhost
   gather_facts: false
   vars:
+    # TODO
     aws_ssh_key_pair: taranto-dev-aws
     instance_type: t2.micro
     region: us-east-2
+    # TODO sg must be created
     security_group: ssh-http-https
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
+    # TODO proper VPC must be used.  Store in group_vars?
     vpc_subnet: subnet-049a1c13e7b423b8c
 
+  # Quick check to make sure the runtime env looks reasonable.
   roles:
     - env_check
 
   tasks:
 
-    - name: Provision and launch instances
+    - name: "Provision and launch instances"
       ec2:
         assign_public_ip: true
         group: "{{ security_group }}"
@@ -32,19 +40,19 @@
         wait: true
       register: ec2
 
+    # Create an Ansible inventory file that contains
+    # the public DNS name of the instance just created.
     - name: "Remove old host inventory file"
       file:
         path: "hosts"
         state: absent
-
     - name: "Create hosts inventory file"
       lineinfile:
         create: true
-        path: "hosts"
+        path: "inv.txt"
         line: "{{ ec2.instances[0].public_dns_name }}"
 
     - debug:
-        msg: "{{ ec2 }}"
-      # msg: "{{ item.instances[0].tags.Name }} == {{ item.instances[0].private_ip }}, {{ item.instances[0].public_ip }}"
+        msg: "{{ ec2.instances[0].tags.Name }} == {{ ec2.instances[0].private_ip }}, {{ ec2.instances[0].public_ip }}"
+      
 ...
-

@@ -1,5 +1,7 @@
 ---
 
+# Step 3 - Tear down the created instance(s).
+
 - name: "Cleanup all instances that match the target tag"
   hosts: localhost
   gather_facts: false
@@ -21,7 +23,6 @@
 
     - name: "Delete stale hosts inventory file"
       file:
-        path: "hosts"
+        path: "{{ inventory_file }}"
         state: absent
 ...
-

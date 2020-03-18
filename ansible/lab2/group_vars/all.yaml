@@ -1,5 +1,0 @@
----
-ansible_python_interpreter: auto_silent
-ansible_ssh_private_key_file: ~/.ssh/taranto-dev-aws.pem
-ansible_user: ec2-user
-...

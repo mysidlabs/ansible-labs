@@ -1,0 +1,11 @@
+---
+ansible_user: ec2-user
+
+ansible_python_interpreter: auto_silent
+
+# TODO Change to mysidlabs key.
+# TODO Add mysidlabs key to mysidlabs-toolkit image.
+ansible_ssh_private_key_file: ~/.ssh/taranto-dev-aws.pem
+
+inventory_file: inv.txt
+...

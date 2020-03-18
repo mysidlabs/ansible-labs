@@ -1,5 +1,10 @@
 ---
-- name: "Add User"
+
+# Step 2 - Configure the instance.  This is a simple
+# example that just creates a user acct.  This playbook
+# can be extended to do more detailed configuration.
+
+- name: "Configure Instance"
   hosts: all
   become: true
   gather_facts: true
@@ -21,4 +26,3 @@
         user: "{{ siduser }}"
         key: "{{ lookup('file', 'ssh-key.pub') }}"
 ...
-
