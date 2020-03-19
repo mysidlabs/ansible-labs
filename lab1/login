@@ -1,0 +1,4 @@
+#! /bin/sh
+
+ssh -i files/ssh-key.pem ${MYSIDLABS_USER}@${1}
+

@@ -1,0 +1,6 @@
+---
+
+- debug:
+    msg: "In mysidlabs_init"
+
+...

@@ -7,21 +7,19 @@
   hosts: localhost
   gather_facts: false
   vars:
-    # TODO
-    aws_ssh_key_pair: taranto-dev-aws
-    instance_type: t2.micro
-    region: us-east-2
-    # TODO sg must be created
-    security_group: ssh-http-https
+    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-    # TODO proper VPC must be used.  Store in group_vars?
-    vpc_subnet: subnet-049a1c13e7b423b8c
 
-  # Quick check to make sure the runtime env looks reasonable.
   roles:
+    # Set AWS environment specific variables.
+    - "{{ aws_profile }}_init"
+    # Quick check to make sure the runtime env looks reasonable.
     - env_check
 
   tasks:
+
+    - debug:
+        var: vpc_subnet
 
     - name: "Provision and launch instances"
       ec2:
@@ -53,6 +51,6 @@
         line: "{{ ec2.instances[0].public_dns_name }}"
 
     - debug:
-        msg: "{{ ec2.instances[0].tags.Name }} == {{ ec2.instances[0].private_ip }}, {{ ec2.instances[0].public_ip }}"
+        msg: "{{ ec2.instances[0].tags.Name }} == Private IP: {{ ec2.instances[0].private_ip }}, Public IP: {{ ec2.instances[0].public_ip }}"
       
 ...

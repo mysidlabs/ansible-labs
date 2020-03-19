@@ -6,9 +6,11 @@
   hosts: localhost
   gather_facts: false
   vars:
+    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
 
   roles:
+    - "{{ aws_profile }}_init"
     - env_check
 
   tasks:
@@ -18,7 +20,7 @@
         state: absent
         wait: false
         filters:
-          "tag:mysidlabs_user": "{{ siduser }}"
+          "tag:mysidlabs_owner": "{{ siduser }}"
           "tag:mysidlabs": "1"
 
     - name: "Delete stale hosts inventory file"

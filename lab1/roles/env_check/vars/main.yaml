@@ -1,8 +1,4 @@
 ---
-# AWS_PROFILE env is required and a matching
-# config found in ~/.aws.
-aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
-
 # MYSYDLABS env is required in format siduserNNN.
 siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
 ...
