@@ -8,10 +8,12 @@
   hosts: all
   become: true
   gather_facts: true
-  #  vars:
-  # siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
+  vars:
+    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
+    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
 
   roles:
+    - "{{ aws_profile }}_init"
     - env_check
 
   tasks:

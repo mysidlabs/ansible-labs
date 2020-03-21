@@ -18,9 +18,6 @@
 
   tasks:
 
-    - debug:
-        var: vpc_subnet
-
     - name: "Provision and launch instances"
       ec2:
         assign_public_ip: true

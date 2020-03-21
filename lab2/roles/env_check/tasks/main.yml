@@ -1,9 +1,0 @@
----
-
-- name: Confirm environment
-  assert:
-    that:
-      - siduser is defined
-      - siduser != ''
-    fail_msg: "'MYSIDLABS_USER' is not defined."
-...

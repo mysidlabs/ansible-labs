@@ -1,0 +1,31 @@
+---
+# Make sure that these vars are valued from the appropriate env entry.
+- name: "Confirm environment"
+  assert:
+    that:
+      - "{{ item }} is defined"
+      - "{{ item }} != ''"
+    fail_msg: "{{ item }} is not defined properly."
+  loop:
+    - aws_profile
+    - siduser
+    - security_group
+
+
+- name:  "Confirm that Security Group {{ security_group }} exists"
+  block:
+    - ec2_group_info:
+        filters:
+          group-name: "{{ security_group }}"
+      register: sg
+
+    - assert:
+        that:
+          - sg.security_groups|length > 0
+          - sg.security_groups[0].group_name == security_group
+        fail_msg: "Security Group {{ security_group }} is not defined."
+  connection: local
+  become: false
+  when: clean_mode is not defined or not clean_mode
+
+...

@@ -11,7 +11,9 @@
 
   roles:
     - "{{ aws_profile }}_init"
-    - env_check
+    - role: env_check
+      vars:
+        clean_mode: true  # Don't need to check for AWS stuff.
 
   tasks:
 

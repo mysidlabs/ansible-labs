@@ -1,15 +1,19 @@
 ---
-- name: Create host instances
+
+# Step 1 - Create a collection of EC2 instances and boot
+# them.  No configuration beyond a simple boot will be done.
+
+- name: "Create host instances"
   hosts: localhost
   gather_facts: false
   vars:
-    aws_ssh_key_pair: taranto-dev-aws
-    instance_type: t2.micro
-    region: us-east-2
-    security_group: ssh-http-https
+    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-    vpc_subnet: subnet-049a1c13e7b423b8c
+
   roles:
+    # Set AWS environment specific variables.
+    - "{{ aws_profile }}_init"
+    # Quick check to make sure the runtime env looks reasonable.
     - env_check
 
   tasks:
@@ -36,6 +40,10 @@
       loop_control:
         index_var: idx
       register: ec2
+
+    # Note that we're not doing anything with an inventory here.
+    # In Lab1, we had the playbook also create the static 
+    # inventory.  In this lab, we'll be using a dynamic inventory.
 
     - debug:
         msg: "{{ item.instances[0].tags.Name }} == {{ item.instances[0].private_ip }}, {{ item.instances[0].public_ip }}"
