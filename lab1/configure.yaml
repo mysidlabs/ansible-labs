@@ -26,5 +26,14 @@
     - name: "Add Authorized Key"
       authorized_key:
         user: "{{ siduser }}"
-        key: "{{ lookup('file', 'ssh-key.pub') }}"
+        key: "{{ lookup('file', '../shared/files/ssh-key.pub') }}"
+
+    - name: "Install a few sample packages"
+      package:
+        name:
+          - cowsay
+          - emacs
+          - jq 
+          - vim
+        state: present
 ...
