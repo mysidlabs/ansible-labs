@@ -26,6 +26,6 @@
         fail_msg: "Security Group {{ security_group }} is not defined."
   connection: local
   become: false
-  when: clean_mode is not defined or not clean_mode
+  when: clean_mode is not defined or not clean_mode # Skip for clean.yaml playbook.
 
 ...
