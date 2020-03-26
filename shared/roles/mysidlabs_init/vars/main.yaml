@@ -11,6 +11,6 @@ region: us-east-2
 security_group: ssh-http-https
 
 # TODO proper VPC must be used.  Store in group_vars?
-vpc_subnet: "{{ lookup('env', 'VPC_SUBNET') or 'subnet-3964a275' }}"
+vpc_subnet: "{{ lookup('env', 'VPC_SUBNET') | default('subnet-3964a275', true) }}"
 
 ...

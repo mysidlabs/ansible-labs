@@ -14,7 +14,9 @@
 
 - name:  "Confirm that Security Group {{ security_group }} exists"
   block:
+
     - ec2_group_info:
+        region: "{{ region }}"
         filters:
           group-name: "{{ security_group }}"
       register: sg
