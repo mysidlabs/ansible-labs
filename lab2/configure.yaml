@@ -1,6 +1,7 @@
 ---
 - name: Configure Web Servers
-  hosts: tier_web
+  # hosts: tier_web
+  hosts: tag_mysidlabs_tier_web
   gather_facts: true
   roles:
     - web
