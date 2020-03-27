@@ -8,6 +8,7 @@
 
     - name: Terminate labeled instances
       ec2_instance:
+        region: "{{ region }}"
         state: absent
         wait: false
         filters:
