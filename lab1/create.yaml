@@ -6,8 +6,6 @@
 - name: "Create host instance"
   hosts: localhost
   gather_facts: false
-  vars:
-    siduser: "{{ lookup('env', 'MYSIDLABS_USER') | default('siduser299', true) }}"
 
   tasks:
 

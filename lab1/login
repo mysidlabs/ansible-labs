@@ -1,4 +1,4 @@
 #! /bin/bash
 
-ssh -i ../shared/files/ssh-key.pem ${MYSIDLABS_USER}@$(cat inv.txt)
+ssh -i files/ssh-key.pem $(head -n 1 inv.txt)
 
