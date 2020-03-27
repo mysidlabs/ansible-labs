@@ -1,6 +1,7 @@
 ---
 
 - name: "Dump hostinfo info"
+  hosts: all
   gather_facts: false
 
   tasks:
