@@ -1,4 +1,11 @@
 ---
+
+- name: "Confirm proper owner"
+  assert:
+    that:
+      - "{{ ec2_tag_mysidlabs_owner }} == {{ siduser }}"
+    fail_msg: "Host is not owned by {{ siduser }}"
+
 - name: Install Apache
   become: true
   package:
