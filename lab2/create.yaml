@@ -20,7 +20,7 @@
       ec2:
         assign_public_ip: true
         group: "{{ security_group }}"
-        image: "{{ item.ami }}"
+        image: "ami-0e38b48473ea57778"
         instance_tags:
           Name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
           mysidlabs: "1"
@@ -32,9 +32,9 @@
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
       loop:
-        - { tier: "lb",  ami: "ami-0fc20dd1da406780b" } # Ubuntu
-        - { tier: "web", ami: "ami-0e38b48473ea57778" } # ALX
-        - { tier: "web", ami: "ami-0e38b48473ea57778" } # ALX
+        - { tier: "lb" }
+        - { tier: "web" }
+        - { tier: "web" }
       loop_control:
         index_var: idx
       register: ec2
@@ -44,7 +44,7 @@
     # inventory.  In this lab, we'll be using a dynamic inventory.
 
     - debug:
-        msg: "{{ item.instances[0].tags.Name }} == {{ item.instances[0].private_ip }}, {{ item.instances[0].public_ip }}"
+        msg: "{{ item.instances[0].tags.Name }} == Private IP: {{ item.instances[0].private_ip }},  Public IP: {{ item.instances[0].public_ip }}"
       loop: "{{ ec2.results }}"
       loop_control:
         label: ""
