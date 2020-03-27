@@ -7,14 +7,13 @@
       - "{{ item }} != ''"
     fail_msg: "{{ item }} is not defined properly."
   loop:
-    - aws_profile
     - siduser
     - security_group
 
-
 - name:  "Confirm that Security Group {{ security_group }} exists"
+  connection: local
+  become: false
   block:
-
     - ec2_group_info:
         region: "{{ region }}"
         filters:
@@ -26,8 +25,5 @@
           - sg.security_groups|length > 0
           - sg.security_groups[0].group_name == security_group
         fail_msg: "Security Group {{ security_group }} is not defined."
-  connection: local
-  become: false
   when: clean_mode is not defined or not clean_mode # Skip for clean.yaml playbook.
-
 ...

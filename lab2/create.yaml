@@ -11,8 +11,6 @@
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
 
   roles:
-    # Set AWS environment specific variables.
-    - "{{ aws_profile }}_init"
     # Quick check to make sure the runtime env looks reasonable.
     - env_check
 
