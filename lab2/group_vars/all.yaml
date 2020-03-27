@@ -3,7 +3,7 @@ ansible_user: "ec2-user"
 ansible_python_interpreter: "auto_silent"
 ansible_ssh_private_key_file: "files/ssh-key.pem"
 
-siduser: "{{ tower_user_id | default('siduser299', true) }}"
+siduser: "{{ tower_user_name | default('siduser299', true) }}"
 
 # AWS 
 aws_ssh_key_pair: "ansible-labs-only"

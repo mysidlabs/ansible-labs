@@ -2,9 +2,11 @@
 
 - name: "Dump hostinfo info"
   hosts: all
-  gather_facts: false
+  gather_facts: true
 
   tasks:
-    - debug:
-        var: hostvars[inventory_hostname]
+    # - debug:
+    #     var: hostvars[inventory_hostname]
+
+    - setup:
 ...
