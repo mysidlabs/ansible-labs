@@ -6,5 +6,6 @@
 
   tasks:
     - debug:
-        var: hostvars
+        var: hostvars[inventory_hostname]
+        verbosity: 2
 ...
