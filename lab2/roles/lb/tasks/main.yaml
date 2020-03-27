@@ -5,6 +5,13 @@
       - "ec2_tag_mysidlabs_owner == siduser"
     fail_msg: "Host is not owned by {{ siduser }}"
 
+- name: Enable EPEL repository
+  become: true
+  yum:
+    name: epel-release
+    state: present
+    update_cache: yes
+ 
 - name: Install nginx
   become: true
   yum:
