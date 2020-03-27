@@ -7,11 +7,10 @@
 
 - name: Install nginx
   become: true
-  apt:
+  yum:
     name: nginx
     state: present
-    update_cache: true
-  when: ansible_facts['pkg_mgr'] == "apt"
+    update_cache: yes
 
 - name: Build nginx Configuration
   become: true

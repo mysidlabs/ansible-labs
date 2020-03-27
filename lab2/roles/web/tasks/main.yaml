@@ -8,9 +8,10 @@
 
 - name: Install Apache
   become: true
-  package:
+  yum:
     name: httpd
     state: present
+    update_cache: yes
 
 - name: Configure Apache index.html
   become: true
