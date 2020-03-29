@@ -20,7 +20,7 @@ jobs:
      - name: Lint playbook
        run: |
          # ansible-playbook site.yml --syntax-check
-         ansible-lint lab1/create.yaml  
+         /home/runner/.local/bin/ansible-lint lab1/create.yaml  
     
     
 #     - uses: actions/checkout@v2
