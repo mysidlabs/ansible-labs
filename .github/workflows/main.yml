@@ -19,8 +19,8 @@ jobs:
          pip install ansible ansible-lint
      - name: Lint playbook
        run: |
-         # ansible-playbook site.yml --syntax-check
-         /home/runner/.local/bin/ansible-lint lab1/create.yaml  
+         ansible-playbook lab1/create.yaml --syntax-check
+         /home/runner/.local/bin/ansible-lint -p lab1/create.yaml  
     
     
 #     - uses: actions/checkout@v2
