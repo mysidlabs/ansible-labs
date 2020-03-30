@@ -21,4 +21,4 @@ jobs:
          pip install ansible ansible-lint
      
      - name: Lint playbook
-       run: find . -type f \( -iname "*.yaml" -o -iname "*.yml"  \) | xargs ansible-lint
+       run: find . -type f \( -iname "*.yaml" -o -iname "*.yml"  \) | xargs /home/runner/.local/bin/ansible-lint
