@@ -21,11 +21,14 @@
         user: "{{ siduser }}"
         key: "{{ lookup('file', '~/.ssh/ssh-key.pub') }}"
 
+    # Note that we're using the generic package module.
+    # Ansible abstracts the underlying package manager,
+    # for thus enabling agnostic playbooks.
     - name: "Install a few sample packages"
       package:
         name:
           - cowsay
-          - emacs
+          - htop
           - jq 
           - vim
         state: present
