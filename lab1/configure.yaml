@@ -8,13 +8,6 @@
   hosts: all
   become: true
   gather_facts: true
-  vars:
-    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
-    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-
-  roles:
-    - "{{ aws_profile }}_init"
-    - env_check
 
   tasks:
 
@@ -26,7 +19,7 @@
     - name: "Add Authorized Key"
       authorized_key:
         user: "{{ siduser }}"
-        key: "{{ lookup('file', '../shared/files/ssh-key.pub') }}"
+        key: "{{ lookup('file', '~/.ssh/ssh-key.pub') }}"
 
     - name: "Install a few sample packages"
       package:

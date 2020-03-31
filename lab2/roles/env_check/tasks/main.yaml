@@ -1,0 +1,12 @@
+---
+# Make sure that these vars are valued from the appropriate env entry.
+- name: "Confirm environment"
+  assert:
+    that:
+      - "{{ item }} is defined"
+      - "{{ item }} != ''"
+    fail_msg: "{{ item }} is not defined properly."
+  loop:
+    - siduser
+    - security_group
+...

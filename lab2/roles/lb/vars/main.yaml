@@ -1,3 +1,0 @@
----
-# vars file for lb
-ansible_ssh_user: ubuntu

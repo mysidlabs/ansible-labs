@@ -1,31 +1,12 @@
 ---
-
-- name: "Dump ec2 instance info"
-  hosts: localhost
-  gather_facts: false
-  vars:
-    # TODO
-    aws_ssh_key_pair: ansible-labs-only
-    instance_type: t2.micro
-    region: us-east-2
-    # TODO sg must be created
-    security_group: ssh-http-https
-    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-    # TODO proper VPC must be used.  Store in group_vars?
-    vpc_subnet: subnet-3964a275
-
-  # Quick check to make sure the runtime env looks reasonable.
-  roles:
-    - env_check
+- name: "Dump hostinfo info"
+  hosts: all
+  gather_facts: true
 
   tasks:
-
-    - name: "Provision and launch instances"
-      ec2_instance_info:
-        filters:
-          "tag:mysidlabs": "1"
-      register: ec2
-
     - debug:
-        msg: "{{ ec2 }}"
+        msg:
+        - "ansible_distribution == {{ hostvars[inventory_hostname].ansible_distribution }}"
+        - "major version == {{ hostvars[inventory_hostname].ansible_distribution_major_version }}"
+        - "version == {{ hostvars[inventory_hostname].ansible_distribution_version }}"
 ...

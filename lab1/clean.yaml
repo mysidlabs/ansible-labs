@@ -5,20 +5,12 @@
 - name: "Cleanup all instances that match the target tag"
   hosts: localhost
   gather_facts: false
-  vars:
-    aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
-    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-
-  roles:
-    - "{{ aws_profile }}_init"
-    - role: env_check
-      vars:
-        clean_mode: true  # Don't need to check for AWS stuff.
 
   tasks:
 
     - name: "Terminate labeled instances"
       ec2_instance:
+        region: "{{ region }}"
         state: absent
         wait: false
         filters:

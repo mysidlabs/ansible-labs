@@ -6,15 +6,6 @@
 - name: "Create host instance"
   hosts: localhost
   gather_facts: false
-  vars:
-    aws_profile: "{{ lookup('env', 'AWS_PROFILE') | default('mysidlabs', true) }}"
-    siduser: "{{ lookup('env', 'MYSIDLABS_USER') | default('siduser299', true) }}"
-
-  roles:
-    # Set AWS environment specific variables.
-    - "{{ aws_profile }}_init"
-    # Quick check to make sure the runtime env looks reasonable.
-    - env_check
 
   tasks:
 

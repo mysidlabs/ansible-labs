@@ -1,9 +1,12 @@
 ---
-ansible_user: ec2-user
+# ansible_user: "ec2-user"
+ansible_python_interpreter: "auto_silent"
+# ansible_ssh_private_key_file: "files/ssh-key.pem"
 
-ansible_python_interpreter: auto_silent
-
-# TODO Add mysidlabs key to mysidlabs-toolkit image
-# and remove from this repo.
-ansible_ssh_private_key_file: ../shared/files/ssh-key.pem
+# AWS 
+aws_ssh_key_pair: "ansible-labs-only"
+instance_type: "t2.micro"
+region: "us-east-2"
+security_group: "ssh-http-https"
+vpc_subnet: "subnet-3964a275"
 ...

@@ -1,11 +1,23 @@
 ---
+- name: "Confirm proper owner"
+  assert:
+    that:
+      - "ec2_tag_mysidlabs_owner == siduser"
+    fail_msg: "Host is not owned by {{ siduser }}"
+
+- name: Enable EPEL repository
+  become: true
+  yum:
+    name: epel-release
+    state: present
+    update_cache: yes
+ 
 - name: Install nginx
   become: true
-  apt:
+  yum:
     name: nginx
     state: present
-    update_cache: true
-  when: ansible_facts['pkg_mgr'] == "apt"
+    update_cache: yes
 
 - name: Build nginx Configuration
   become: true

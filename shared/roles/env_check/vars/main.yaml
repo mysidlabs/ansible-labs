@@ -1,4 +1,0 @@
----
-# MYSYDLABS env is required in format siduserNNN.
-siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
-...
