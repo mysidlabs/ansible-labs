@@ -1,12 +1,12 @@
 ---
 
-- name: Cleanup all instances that match the target tag
+- name: "Cleanup all instances that match the target tag - mysidlabs_owner: {{ siduser }}"
   hosts: localhost
   gather_facts: false
 
   tasks:
 
-    - name: Terminate labeled instances
+    - name: "Terminate labeled instances"
       ec2_instance:
         region: "{{ region }}"
         state: absent

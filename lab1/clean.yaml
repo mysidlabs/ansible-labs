@@ -2,7 +2,7 @@
 
 # Step 3 - Tear down the created instance(s).
 
-- name: "Cleanup all instances that match the target tag"
+- name: "Cleanup all instances that match the target tag - mysidlabs_owner: {{ siduser }}"
   hosts: localhost
   gather_facts: false
 
