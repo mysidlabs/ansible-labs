@@ -13,7 +13,7 @@
       ec2:
         assign_public_ip: true
         group: "{{ security_group }}"
-        image: "ami-0e38b48473ea57778"
+        image: "ami-01e36b7901e884a10"
         instance_tags:
           Name: "{{ siduser }}-lab1"
           mysidlabs: "1"
