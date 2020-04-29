@@ -24,9 +24,8 @@
     - name: "Install a few sample packages"
       package:
         name:
-          - cowsay
-          - emacs
-          - jq 
+          - git
           - vim
+          - wget
         state: present
 ...
