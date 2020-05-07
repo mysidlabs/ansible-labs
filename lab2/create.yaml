@@ -50,7 +50,7 @@
 
     - debug:
         msg: "{{ item.instances[0].tags.Name }} == Private IP: {{ item.instances[0].private_ip }},  Public IP: {{ item.instances[0].public_ip }}"
-      loop: "{{ ec2i_results.results }}"
+      loop: "{{ ec2_results.results }}"
       loop_control:
         label: ""
 ...
