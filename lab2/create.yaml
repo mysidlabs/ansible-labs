@@ -19,7 +19,7 @@
     - name: Provision and launch instances
       ec2_instance:
         name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
-        image_id: "ami-b7901e884a10"
+        image_id: "ami-01e36b7901e884a10"
         instance_type: "{{ instance_type }}"
         network:
           assign_public_ip: true
