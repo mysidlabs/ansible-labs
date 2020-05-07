@@ -10,35 +10,37 @@
   tasks:
 
     - name: "Provision and launch instances"
-      ec2:
-        assign_public_ip: true
-        group: "{{ security_group }}"
-        image: "ami-01e36b7901e884a10"
-        instance_tags:
-          Name: "{{ siduser }}-lab1"
+      ec2_instance:
+        name: "{{siduser }}-lab1"
+        image_id: "ami-01e36b7901e884a10"
+        instance_type: "{{ instance_type }}"
+        network:
+          assign_public_ip: true
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
+        security_group: "{{ security_group }}"
+        tags:
           mysidlabs: "1"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
-        instance_type: "{{ instance_type }}"
-        key_name: "{{ aws_ssh_key_pair }}"
-        region: "{{ region }}"
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
-      register: ec2
+      register: ec2_result
 
     # Create an Ansible inventory file that contains
     # the public DNS name of the instance just created.
     - name: "Remove old host inventory file"
       file:
-        path: "hosts"
+        path: "inv.txt"
         state: absent
+
     - name: "Create hosts inventory file"
       lineinfile:
         create: true
         path: "inv.txt"
-        line: "{{ ec2.instances[0].public_dns_name }}"
+        line: "{{ ec2_result.instances[0].public_dns_name }}"
 
     - debug:
-        msg: "{{ ec2.instances[0].tags.Name }} == Private IP: {{ ec2.instances[0].private_ip }}, Public IP: {{ ec2.instances[0].public_ip }}"
+        msg: "{{ ec2_result.instances[0].tags.Name }} == Private IP: {{ ec2_result.instances[0].private_ip }}, Public IP: {{ ec2_result.instances[0].public_ip }}"
       
 ...
