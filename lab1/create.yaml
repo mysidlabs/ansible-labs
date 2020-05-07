@@ -11,7 +11,7 @@
 
     - name: "Provision and launch instances"
       ec2_instance:
-        name: "{{siduser }}-lab1"
+        name: "{{ siduser }}-lab1"
         image_id: "ami-01e36b7901e884a10"
         instance_type: "{{ instance_type }}"
         network:
@@ -23,6 +23,10 @@
           mysidlabs: "1"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
+        volumes:
+          - device_name: /dev/sda1
+            ebs:
+              delete_on_termination: true
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
       register: ec2_result
@@ -33,7 +37,6 @@
       file:
         path: "inv.txt"
         state: absent
-
     - name: "Create hosts inventory file"
       lineinfile:
         create: true
@@ -41,6 +44,6 @@
         line: "{{ ec2_result.instances[0].public_dns_name }}"
 
     - debug:
-        msg: "{{ ec2_result.instances[0].tags.Name }} == Private IP: {{ ec2_result.instances[0].private_ip }}, Public IP: {{ ec2_result.instances[0].public_ip }}"
+        msg: "{{ ec2_result.instances[0].tags.Name }} == Private IP: {{ ec2_result.instances[0].private_ip_address }}, Public IP: {{ ec2_result.instances[0].public_ip_address }}"
       
 ...

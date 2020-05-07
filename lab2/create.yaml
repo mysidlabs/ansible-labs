@@ -17,18 +17,23 @@
   tasks:
 
     - name: Provision and launch instances
-      ec2:
-        assign_public_ip: true
-        group: "{{ security_group }}"
-        image: "ami-01e36b7901e884a10"
-        instance_tags:
-          Name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
+      ec2_instance:
+        name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
+        image_id: "ami-b7901e884a10"
+        instance_type: "{{ instance_type }}"
+        network:
+          assign_public_ip: true
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
+        security_group: "{{ security_group }}"
+        tags:
           mysidlabs: "1"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "{{ item.tier }}"
-        instance_type: "{{ instance_type }}"
-        key_name: "{{ aws_ssh_key_pair }}"
-        region: "{{ region }}"
+        volumes:
+          - device_name: /dev/sda1
+            ebs:
+              delete_on_termination: true
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
       loop:
@@ -37,7 +42,7 @@
         - { tier: "web" }
       loop_control:
         index_var: idx
-      register: ec2
+      register: ec2_result
 
     # Note that we're not doing anything with an inventory here.
     # In Lab1, we had the playbook also create the static 
@@ -45,7 +50,7 @@
 
     - debug:
         msg: "{{ item.instances[0].tags.Name }} == Private IP: {{ item.instances[0].private_ip }},  Public IP: {{ item.instances[0].public_ip }}"
-      loop: "{{ ec2.results }}"
+      loop: "{{ ec2i_results.results }}"
       loop_control:
         label: ""
 ...
