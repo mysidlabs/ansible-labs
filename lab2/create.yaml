@@ -49,12 +49,6 @@
     # inventory.  In this lab, we'll be using a dynamic inventory.
 
     - debug:
-        msg: "{{ ec2_result }}"
-    
-    - debug:
-        msg: "{{ ec2_result.results }}"
-
-    - debug:
         msg: "{{ item.instances[0].tags.Name }} == Private IP: {{ item.instances[0].private_ip_address }}, Public IP: {{ item.instances[0].public_ip_address }}"
       loop: "{{ ec2_result.results }}"
       loop_control:
