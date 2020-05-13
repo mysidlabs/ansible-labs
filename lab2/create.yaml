@@ -3,7 +3,7 @@
 # Step 1 - Create a collection of EC2 instances and boot
 # them.  No configuration beyond a simple boot will be done.
 
-- name: "Create host instances"
+- name: "Create host instances FROM AZURE"
   hosts: localhost
   gather_facts: false
   vars:
