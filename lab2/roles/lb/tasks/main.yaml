@@ -11,7 +11,7 @@
     name: epel-release
     state: present
     update_cache: yes
- 
+
 - name: Install nginx
   become: true
   yum:
