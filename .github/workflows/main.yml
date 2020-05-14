@@ -13,5 +13,5 @@ jobs:
     - name: Lint Ansible Playbook
       uses: ansible/ansible-lint-action@151b9a2
       with:
-        targets: "./"
+        targets: "**/*.y*"
         args: "-q"
