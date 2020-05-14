@@ -44,6 +44,8 @@
         line: "{{ ec2_result.instances[0].public_dns_name }}"
 
     - debug:
-        msg: "{{ ec2_result.instances[0].tags.Name }} == Private IP: {{ ec2_result.instances[0].private_ip_address }}, Public IP: {{ ec2_result.instances[0].public_ip_address }}"
-      
+        msg: 
+        - "{{ ec2_result.instances[0].tags.Name }}"
+        - "Private IP: {{ ec2_result.instances[0].private_ip_address }}"
+        - "Public IP: {{ ec2_result.instances[0].public_ip_address }}"
 ...
