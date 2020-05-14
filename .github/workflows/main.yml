@@ -1,24 +1,17 @@
 name: Ansible Lint
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
 
-     - uses: actions/checkout@v1
- 
-     - name: Set up Python ${{ matrix.python-version }}
-       uses: actions/setup-python@v1
-       with:
-         python-version: ${{ matrix.python-version }}
- 
-     - name: Install dependencies
-       run: |
-         python -m pip install --upgrade pip
-         pip install ansible ansible-lint
- 
-     - name: Lint playbook
-       run: find . -type f \( -iname "*.yaml" -o -iname "*.yml"  \) | xargs /home/runner/.local/bin/ansible-lint
+    - name: Lint Ansible Playbook
+      uses: ansible/ansible-lint-action@151b9a2
+      with:
+        targets: "./"
+        args: "-q"
