@@ -44,8 +44,6 @@
         index_var: idx
       register: ec2_result
 
-    - include_tasks: wait_for_ssh.yaml
-
     # Note that we're not doing anything with an inventory here.
     # In Lab1, we had the playbook also create the static 
     # inventory.  In this lab, we'll be using a dynamic inventory.
