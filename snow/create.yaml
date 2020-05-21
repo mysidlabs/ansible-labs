@@ -1,0 +1,133 @@
+---
+- name: "Complete SNOW Provisioning Request"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+    # Find all requests in a pending state.
+    - name: "Get SNOW Requests"
+      snow_record_find:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_request
+        query:
+          approval: "approved"
+          # state: "1"
+      ignore_errors: yes
+      register: req
+
+    - fail:
+        msg: "No approved requests to process."
+      when: "req.rc is defined"
+    
+    - debug:
+        var: req
+
+    
+    # For each requests, find it's matching request item
+    # so we can eventually get the application owner.
+    - name: "Get SNOW Request Item"
+      snow_record_find:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_req_item
+        query:
+          request: "{{ req.record[0].sys_id }}"
+      register: ri
+    
+    - debug:
+        var: ri
+
+    # For each request item find it's application owner
+    # custom variable.  This is a two-step process.
+    # First, get the M2M linkage from the requests
+    # table to the item option table, which holds the
+    # actual value we're looking for.
+    - name: "Get SNOW Item M2M"
+      snow_record_find:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_item_option_mtom
+        query:
+          request_item: "{{ ri.record[0].sys_id }}"
+      register: mtom
+    
+    - debug:
+        var: mtom
+
+    - name: "Get SNOW Item Variables"
+      snow_record_find:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_item_option
+        query:
+          sys_id: "{{ mtom.record[0].sc_item_option.value }}"
+      register: io
+    
+    - debug:
+        var: io
+
+    - debug:
+        msg: "The application owner is {{ io.record[0].value }}"
+
+
+    - name: "Provision and launch instances"
+      ec2_instance:
+        name: "{{ io.record[0].value }}-lab1"
+        image_id: "ami-01e36b7901e884a10"
+        instance_type: "{{ instance_type }}"
+        network:
+          assign_public_ip: true
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
+        security_group: "{{ security_group }}"
+        tags:
+          mysidlabs: "1"
+          mysidlabs_owner: "{{ io.record[0].value }}"
+          mysidlabs_tier: "lab1"
+        volumes:
+          - device_name: /dev/sda1
+            ebs:
+              delete_on_termination: true
+        vpc_subnet_id: "{{ vpc_subnet }}"
+        wait: true
+      tags:
+        - ec2
+      register: ec2_result
+    
+      - debug:
+        var: ec2_result
+
+    - name: "Mark SNOW Request Item As Complete"
+      snow_record:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_req_item
+        state: present
+        number: "{{ ri.record[0].number }}"
+        data:
+          state: "3"
+      tags:
+        - snow_update
+
+    - name: "Mark SNOW Request As Complete"
+      snow_record:
+        username: "{{ snow_id }}"
+        password: "{{ snow_pw }}"
+        instance: "{{ snow_instance }}"
+        table: sc_request
+        state: present
+        number: "{{ req.record[0].number }}"
+        data:
+          state: "3"
+          request_state: "closed_complete"
+          active: "false"
+      tags:
+        - snow_update
+...

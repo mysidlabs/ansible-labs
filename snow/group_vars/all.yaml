@@ -1,5 +1,20 @@
 ---
-snow_uid: admin
+snow_id: admin
 snow_pw: Passw0rd!
 snow_instance: dev88784
+
+ansible_user: "centos"
+ansible_python_interpreter: "auto_silent"
+ansible_ssh_private_key_file: "~/.ssh/ssh-key.pem"
+
+inventory_file: "inv.txt"
+
+# AWS 
+aws_ssh_key_pair: "ansible-labs-only"
+instance_type: "t2.micro"
+region: "us-east-2"
+security_group: "ssh-http-https"
+vpc_subnet: "subnet-3964a275"
+
+
 ...
