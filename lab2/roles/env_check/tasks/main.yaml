@@ -4,7 +4,7 @@
   assert:
     that:
       - "{{ item }} is defined"
-      - item |bool
+      - "{{ item }} != ''"
     fail_msg: "{{ item }} is not defined properly."
   loop:
     - siduser
