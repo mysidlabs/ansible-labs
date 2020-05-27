@@ -100,7 +100,7 @@
         - ec2
       register: ec2_result
     
-      - debug:
+    - debug:
         var: ec2_result
 
     - name: "Mark SNOW Request Item As Complete"
