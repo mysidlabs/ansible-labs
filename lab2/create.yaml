@@ -35,7 +35,7 @@
             ebs:
               delete_on_termination: true
         vpc_subnet_id: "{{ vpc_subnet }}"
-        wait: true
+        wait: false
       loop:
         - { tier: "lb" }
         - { tier: "web" }
