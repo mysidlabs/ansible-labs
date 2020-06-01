@@ -37,7 +37,7 @@
               delete_on_termination: true
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
-        wait_timeout: 300
+        wait_timeout: 120
       loop:
         - { tier: "lb" }
         - { tier: "web" }
