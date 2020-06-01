@@ -12,6 +12,6 @@
         state: absent
         wait: false
         filters:
-          # "tag:mysidlabs_owner": "{{ siduser }}"
+          "tag:mysidlabs_owner": "{{ siduser }}"
           "tag:mysidlabs": "1"
 ...
