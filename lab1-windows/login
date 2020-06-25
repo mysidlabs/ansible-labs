@@ -1,0 +1,4 @@
+#! /bin/bash
+
+ssh -i ~/.ssh/ssh-key.pem ${USER}@$(head -n 1 inv.txt)
+
