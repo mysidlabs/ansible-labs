@@ -2,9 +2,11 @@
 ansible_user: "Administrator"
 ansible_password: wind0wsSidlabs!
 ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
 ansible_winrm_transport: basic
 
-ansible_python_interpreter: "auto_silent"
+
+# ansible_python_interpreter: "auto_silent"
 ansible_ssh_private_key_file: "~/.ssh/ssh-key.pem"
 
 inventory_file: "inv.txt"
@@ -14,6 +16,6 @@ siduser: "{{ lookup('env', 'USER') | default('siduser299', true) }}"
 aws_ssh_key_pair: "ansible-labs-only"
 instance_type: "t2.micro"
 region: "us-east-2"
-security_group: "ssh-http-https"
+security_group: "ansible-winrm-enabled"
 vpc_subnet: "subnet-3964a275"
 ...
