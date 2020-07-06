@@ -16,9 +16,13 @@
         password: wind0wsSidLabs!
         groups: Administrators
 
+    - name: Install win-choclatey
+
     - name: Install IIS WebServer with sub-features and management tools
       win_feature:
-        name: Web-Server
+        name: "web-server"
         state: present
-
+        restart: yes
+        include_sub_features: yes
+        include_management_tools: yes
 ...
