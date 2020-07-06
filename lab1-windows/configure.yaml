@@ -11,7 +11,7 @@
   tasks:
 
     - name: "Ensure User Account Exists"
-      user:
+      win_user:
         name: "{{ siduser }}"
         password: wind0wsSidLabs!
         groups: Administrators
