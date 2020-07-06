@@ -6,7 +6,6 @@
 
 - name: "Configure Instance"
   hosts: all
-  become: true
   gather_facts: true
 
   tasks:
