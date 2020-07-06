@@ -14,7 +14,7 @@ siduser: "{{ lookup('env', 'USER') | default('siduser299', true) }}"
 
 # AWS 
 aws_ssh_key_pair: "ansible-labs-only"
-instance_type: "t2.micro"
+instance_type: "t3a.medium"
 region: "us-east-2"
 security_group: "ansible-winrm-enabled"
 vpc_subnet: "subnet-3964a275"

@@ -1,8 +1,8 @@
 ---
 
 # Step 2 - Configure the instance.  This is a simple
-# example that just creates a user acct.  This playbook
-# can be extended to do more detailed configuration.
+# example that just creates a user acct and installs IIS and management tools.
+#  This playbook can be extended to do more detailed configuration.
 
 - name: "Configure Instance"
   hosts: all
@@ -14,18 +14,19 @@
     - name: "Ensure User Account Exists"
       user:
         name: "{{ siduser }}"
-        groups: adm
+        password: wind0wsSidLabs!
+        groups: Administrators
 
-    - name: "Add Authorized Key"
-      authorized_key:
-        user: "{{ siduser }}"
-        key: "{{ lookup('file', '~/.ssh/ssh-key.pub') }}"
-
-    - name: "Install a few sample packages"
-      package:
-        name:
-          - git
-          - vim
-          - wget
+    - name: "Install IIS WebServer with sub-features and management tools"
+      win_feature:
+        name: Web-Server
         state: present
+        include_sub_features: yes
+        include_management_tools: yes
+      register: win_feature
+
+    - name: Reboot if installing Web-Server feature requires it
+      win_reboot:
+      when: win_feature.reboot_required
+
 ...
