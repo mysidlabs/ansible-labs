@@ -1,0 +1,9 @@
+---
+- name: Wait for SSH
+  hosts: "tag_mysidlabs_owner_{{ siduser }}"
+  gather_facts: false
+  tasks:
+    - name: Wait for SSH
+      wait_for_connection:
+        timeout: 300
+...
