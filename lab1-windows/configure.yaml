@@ -16,16 +16,9 @@
         password: wind0wsSidLabs!
         groups: Administrators
 
-    - name: "Install IIS WebServer with sub-features and management tools"
+    - name: Install IIS WebServer with sub-features and management tools
       win_feature:
         name: Web-Server
         state: present
-        include_sub_features: yes
-        include_management_tools: yes
-      register: win_feature
-
-    - name: Reboot if installing Web-Server feature requires it
-      win_reboot:
-      when: win_feature.reboot_required
 
 ...
