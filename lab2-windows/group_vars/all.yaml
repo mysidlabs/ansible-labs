@@ -1,6 +1,6 @@
 ---
-	ansible_python_interpreter: "auto_silent"
-	
+ansible_python_interpreter: "auto_silent"
+
 # AWS 
 aws_ssh_key_pair: "ansible-labs-only"
 instance_type: "t3a.medium"
