@@ -1,0 +1,3 @@
+ansible_site_path: "c:\\inetpub\\wwwroot\\ansibletest"
+staging_path: "c:\\deploy"
+ansible_test_staging_path: "{{ staging_path }}\\ansible-test-site-{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
