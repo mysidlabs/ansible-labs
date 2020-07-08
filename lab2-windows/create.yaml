@@ -8,7 +8,8 @@
   gather_facts: false
   vars:
     aws_profile: "{{ lookup('env', 'AWS_PROFILE') }}"
-    siduser: "{{ lookup('env', 'USER') | default('siduser299', true) }}"
+    siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
+
 
   roles:
     # Quick check to make sure the runtime env looks reasonable.
