@@ -8,5 +8,5 @@
     fail_msg: "{{ item }} is not defined properly."
   loop:
     - siduser
-    - security_group
+    # - security_group
 ...
