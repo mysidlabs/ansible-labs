@@ -8,8 +8,8 @@
     include_sub_features: yes
     include_management_tools: no
 
-- name: create staging path
-  win_file: path={{ staging_path }} state=directory
+# - name: create staging path
+#   win_file: path={{ staging_path }} state=directory
 
 - name: default-website-index
   win_template:
