@@ -6,7 +6,7 @@
     state: present
     restart: no
     include_sub_features: yes
-    include_management_tools: no
+    include_management_tools: yes
 
 # - name: create staging path
 #   win_file: path={{ staging_path }} state=directory
@@ -23,7 +23,7 @@
   win_iis_website:
     name: "Ansible Test Site"
     state: started
-    port: 8080
+    port: 80
     physical_path: "{{ ansible_site_path }}"
 
 - name: Open site's port on firewall
@@ -31,7 +31,7 @@
     name: demo_app_8080
     enable: yes
     state: present
-    localport: 8080
+    localport: 80
     action: Allow
     direction: In
     protocol: Tcp
