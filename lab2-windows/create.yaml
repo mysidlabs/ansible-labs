@@ -31,7 +31,7 @@
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
-          mysidlabs_tier: "{{ item.tier }}"
+          mysidlabs_tier: "web"
           mysidlabs_type: "windows"
         volumes:
           - device_name: /dev/sda1
@@ -62,7 +62,7 @@
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
-          mysidlabs_tier: "{{ item.tier }}"
+          mysidlabs_tier: "lb"
           mysidlabs_type: "linux"
         volumes:
           - device_name: /dev/sda1
