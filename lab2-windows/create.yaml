@@ -16,36 +16,36 @@
     - env_check
 
   tasks:
-    # - name: Provision and launch windows instances
-    #   ec2_instance:
-    #     name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
-    #     image_id: "ami-09f37a557c2427a5f"
-    #     instance_type: t3a.medium
-    #     network:
-    #       assign_public_ip: true
-    #     key_name: "{{ aws_ssh_key_pair }}"
-    #     region: "{{ region }}"
-    #     security_group: ansible-winrm-enabled
-    #     state: running
-    #     tags:
-    #       mysidlabs: "1"
-    #       mysidlabs-tier: "ephemeral"
-    #       mysidlabs_owner: "{{ siduser }}"
-    #       mysidlabs_tier: "web"
-    #       mysidlabs_type: "windows"
-    #     volumes:
-    #       - device_name: /dev/sda1
-    #         ebs:
-    #           delete_on_termination: true
-    #     vpc_subnet_id: "{{ vpc_subnet }}"
-    #     wait: true
-    #     wait_timeout: 120
-    #   loop:
-    #     - { tier: "web" }
-    #     - { tier: "web" }
-    #   loop_control:
-    #     index_var: idx
-    #   register: ec2_result
+    - name: Provision and launch windows instances
+      ec2_instance:
+        name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
+        image_id: "ami-09f37a557c2427a5f"
+        instance_type: t3a.medium
+        network:
+          assign_public_ip: true
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
+        security_group: ansible-winrm-enabled
+        state: running
+        tags:
+          mysidlabs: "1"
+          mysidlabs-tier: "ephemeral"
+          mysidlabs_owner: "{{ siduser }}"
+          mysidlabs_tier: "web"
+          mysidlabs_type: "windows"
+        volumes:
+          - device_name: /dev/sda1
+            ebs:
+              delete_on_termination: true
+        vpc_subnet_id: "{{ vpc_subnet }}"
+        wait: true
+        wait_timeout: 120
+      loop:
+        - { tier: "web" }
+        - { tier: "web" }
+      loop_control:
+        index_var: idx
+      register: ec2_result
 
     - name: Provision and launch lb
       ec2_instance:
