@@ -1,6 +1,6 @@
 ---
 - name: "Dump hostinfo info"
-  hosts: tag_mysidlabs_tier_web
+  hosts: tag_mysidlabs_tier_lb
   gather_facts: true
 
   tasks:
