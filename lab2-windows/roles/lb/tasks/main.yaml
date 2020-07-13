@@ -19,15 +19,29 @@
     state: present
     update_cache: yes
 
-- name: Build nginx Configuration
-  become: true
-  template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
+    #- name: debug
+    #  debug: msg="{{item}}"
+    #  loop: "{{ groups['web'] }}"
 
-- name: Restart nginx Service
-  become: true
-  service:
-    name: nginx
-    state: restarted
+- name: debug
+  vars:
+    msg: |
+      HOST Variables ("hostvars"):
+      ----------------------------
+      {{ hostvars[item] | to_nice_json }}
+  debug:
+    msg: "{{msg.split('\n') }}"
+  loop: "{{ groups['web'] }}"
+
+  #- name: Build nginx Configuration
+  #  become: true
+  #  template:
+  #    src: nginx.conf
+  #    dest: /etc/nginx/nginx.conf
+  #
+  #- name: Restart nginx Service
+  #  become: true
+  #  service:
+  #    name: nginx
+  #    state: restarted
 ...

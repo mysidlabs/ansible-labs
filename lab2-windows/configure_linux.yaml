@@ -1,6 +1,6 @@
 ---
 - name: Configure Load Balancer
-  hosts: tag_mysidlabs_tier_lb
+  hosts: lb #tag_mysidlabs_tier_lb
   gather_facts: true
   roles:
     - lb
