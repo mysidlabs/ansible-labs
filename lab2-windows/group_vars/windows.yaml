@@ -1,0 +1,4 @@
+---
+# this is not currently being used
+# instance_type: t3a.medium
+# security_group: ansible-winrm-enabled
