@@ -1,5 +1,11 @@
 ---
 ansible_python_interpreter: "auto_silent"
+ansible_user: "centos"
+ansible_python_interpreter: "auto_silent"
+ansible_ssh_private_key_file: "~/.ssh/ssh-key.pem"
+
+inventory_file: "inv.txt"
+siduser: "{{ lookup('env', 'USER') | default('siduser299', true) }}"
 
 # AWS 
 aws_ssh_key_pair: "ansible-labs-only"
