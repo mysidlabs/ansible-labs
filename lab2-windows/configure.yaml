@@ -13,13 +13,13 @@
 ...
 
 
- # Linux Variables 
-  - ansible_ssh_user: "{{ 'devops' if ec2_tag_OS == 'Linux' else 'Administrator' }}"
-  - ansible_ssh_private_key_file: "{{ '~/path/code.pem' if ec2_tag_OS == 'Linux' else '' }}"
-  # Windows Variables
-  - ansible_connection: "{{ 'winrm' if ec2_tag_OS == 'Windows' else 'ssh' }}"
-  - ansible_ssh_port: "{{ 5986 if ec2_tag_OS == 'Windows' else 22 }}"
-  - ansible_ssh_pass: "{{ 'password123' if ec2_tag_OS == 'Windows' else '' }}"
-  - ansible_winrm_server_cert_validation: "{{ 'ignore' if ec2_tag_OS == 'Windows' else '' }}"
-  - ansible_winrm_operation_timeout_sec: 60
-  - ansible_winrm_read_timeout_sec: 70
+#  # Linux Variables 
+#   - ansible_ssh_user: "{{ 'devops' if ec2_tag_OS == 'Linux' else 'Administrator' }}"
+#   - ansible_ssh_private_key_file: "{{ '~/path/code.pem' if ec2_tag_OS == 'Linux' else '' }}"
+#   # Windows Variables
+#   - ansible_connection: "{{ 'winrm' if ec2_tag_OS == 'Windows' else 'ssh' }}"
+#   - ansible_ssh_port: "{{ 5986 if ec2_tag_OS == 'Windows' else 22 }}"
+#   - ansible_ssh_pass: "{{ 'password123' if ec2_tag_OS == 'Windows' else '' }}"
+#   - ansible_winrm_server_cert_validation: "{{ 'ignore' if ec2_tag_OS == 'Windows' else '' }}"
+#   - ansible_winrm_operation_timeout_sec: 60
+#   - ansible_winrm_read_timeout_sec: 70
