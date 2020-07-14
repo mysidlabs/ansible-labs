@@ -2,6 +2,9 @@
 - name: Configure Web Servers
   hosts: tag_mysidlabs_app_tier_web
   gather_facts: true
+  set_fact:
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
   roles:
     - web
 
