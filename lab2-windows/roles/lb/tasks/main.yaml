@@ -26,6 +26,17 @@
     src: nginx.conf.j2
     dest: C:\tools\nginx-1.19.1\conf\nginx.conf
 
+- name: Open site's port on firewall
+  win_firewall_rule:
+    name: demo_app_80
+    enable: yes
+    state: present
+    localport: 80
+    action: Allow
+    direction: In
+    protocol: Tcp
+    force: true
+  tags: firewall
 
 #- name: "Confirm proper owner"
 #  assert:
