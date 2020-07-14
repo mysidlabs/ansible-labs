@@ -21,7 +21,6 @@
 #     notify:
 #       - start nginx
 
-- name: create nginx
 - name: copy nginx conf file
   win_template: 
     src: nginx.conf.j2
