@@ -32,7 +32,7 @@
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_app_tier: "{{ item.tier }}"
-          mysidlabs_type: "windows"
+          mysidlabs_os_type: "windows"
         volumes:
           - device_name: /dev/sda1
             ebs:
