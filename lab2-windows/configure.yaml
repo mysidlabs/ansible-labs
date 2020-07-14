@@ -2,15 +2,16 @@
 - name: Configure Web Servers
   hosts: tag_mysidlabs_app_tier_web
   gather_facts: true
-  set_fact:
-    ansible_connection: winrm
-    ansible_winrm_server_cert_validation: ignore
+  ansible_connection: winrm
+  ansible_winrm_server_cert_validation: ignore
   roles:
     - web
 
 - name: Configure Load Balancer
   hosts: tag_mysidlabs_app_tier_lb
   gather_facts: true
+  ansible_connection: winrm
+  ansible_winrm_server_cert_validation: ignore
   roles:
     - lb
 ...
