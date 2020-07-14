@@ -8,23 +8,24 @@
   win_chocolatey:
     name: nssm
     state: present
+    
+# - name: install nginx as service
+#   win_nssm:
+#     name: nginx
+#     application: C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.19.1\nginx.exe
+#     app_parameters_free_form: -c C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.19.1\conf\nginx.conf -p C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.19.1
+#     stdout_file: C:\nginx_out.txt
+#     stderr_file: C:\nginx_error.txt
+#     start_mode: auto
+#     state: started
+#     notify:
+#       - start nginx
 
+- name: create nginx
 - name: copy nginx conf file
   win_template: 
     src: nginx.conf.j2
-    dest: C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\conf\nginx.conf
-    
-- name: install nginx as service
-  win_nssm:
-    name: nginx
-    application: C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\nginx.exe
-    app_parameters_free_form: -c C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\conf\nginx.conf -p C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1
-    stdout_file: C:\nginx_out.txt
-    stderr_file: C:\nginx_error.txt
-    start_mode: auto
-    state: started
-    notify:
-      - start nginx
+    dest: C:\tools\nginx-1.19.1\conf\nginx.conf
 
 
 #- name: "Confirm proper owner"
