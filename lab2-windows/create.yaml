@@ -31,7 +31,7 @@
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
-          mysidlabs_app_tier: "web"
+          mysidlabs_app_tier: "{{ item.tier }}"
           mysidlabs_type: "windows"
         volumes:
           - device_name: /dev/sda1
@@ -41,9 +41,9 @@
         wait: true
         wait_timeout: 120
       loop:
-        - { tier: "web" }
-        - { tier: "web" }
         - { tier: "lb" }
+        - { tier: "web" }
+        - { tier: "web" }
       loop_control:
         index_var: idx
       register: ec2_result
