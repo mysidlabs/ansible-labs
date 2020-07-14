@@ -1,8 +1,0 @@
----
-- name: Configure Web Servers
-  hosts: tag_mysidlabs_app_tier_web
-  gather_facts: true
-  roles:
-    - web
-
-...
