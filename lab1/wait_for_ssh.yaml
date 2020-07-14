@@ -1,9 +1,0 @@
----
-- name: Wait for SSH
-  hosts: "all"
-  gather_facts: false
-  tasks:
-    - name: Wait for SSH
-      wait_for_connection:
-        timeout: 300
-...
