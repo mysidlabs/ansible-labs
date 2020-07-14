@@ -1,33 +1,61 @@
 ---
+- name: install nginx
+  win_chocolatey:
+    name: nginx
+    state: present
+
+- name: install nssm
+  win_chocolatey:
+    name: nssm
+    state: present
+
+- name: copy nginx conf file
+  win_template: 
+    src: nginx.conf.j2
+    dest: C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\conf\nginx.conf
+    
+- name: install nginx as service
+  win_nssm:
+    name: nginx
+    application: C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\nginx.exe
+    app_parameters_free_form: -c C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1\conf\nginx.conf -p C:\ProgramData\chocolatey\lib\nginx\tools\nginx-1.12.1
+    stdout_file: C:\nginx_out.txt
+    stderr_file: C:\nginx_error.txt
+    start_mode: auto
+    state: started
+    notify:
+      - start nginx
+
+
 #- name: "Confirm proper owner"
 #  assert:
 #    that:
 #      - "tag_mysidlabs_owner == siduser"
 #    fail_msg: "Host is not owned by {{ siduser }}"
 
-- name: Enable EPEL repository
-  become: true
-  yum:
-    name: epel-release
-    state: present
-    update_cache: yes
+# - name: Enable EPEL repository
+#   become: true
+#   yum:
+#     name: epel-release
+#     state: present
+#     update_cache: yes
 
-- name: Install nginx
-  become: true
-  yum:
-    name: nginx
-    state: present
-    update_cache: yes
+# - name: Install nginx
+#   become: true
+#   yum:
+#     name: nginx
+#     state: present
+#     update_cache: yes
 
-- name: Build nginx Configuration
-  become: true
-  template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
+# - name: Build nginx Configuration
+#   become: true
+#   template:
+#     src: nginx.conf
+#     dest: /etc/nginx/nginx.conf
 
-- name: Restart nginx Service
-  become: true
-  service:
-    name: nginx
-    state: restarted
+# - name: Restart nginx Service
+#   become: true
+#   service:
+#     name: nginx
+#     state: restarted
 ...

@@ -43,39 +43,40 @@
       loop:
         - { tier: "web" }
         - { tier: "web" }
-      loop_control:
-        index_var: idx
-      register: ec2_result
-
-    - name: Provision and launch lb
-      ec2_instance:
-        name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
-        image_id: "ami-01e36b7901e884a10"
-        instance_type: "t3a.nano"
-        network:
-          assign_public_ip: true
-        key_name: "{{ aws_ssh_key_pair }}"
-        region: "{{ region }}"
-        security_group: ssh-http-https
-        state: running
-        tags:
-          mysidlabs: "1"
-          mysidlabs-tier: "ephemeral"
-          mysidlabs_owner: "{{ siduser }}"
-          mysidlabs_app_tier: "lb"
-          mysidlabs_type: "linux"
-        volumes:
-          - device_name: /dev/sda1
-            ebs:
-              delete_on_termination: true
-        vpc_subnet_id: "{{ vpc_subnet }}"
-        wait: true
-        wait_timeout: 120
-      loop:
         - { tier: "lb" }
       loop_control:
         index_var: idx
       register: ec2_result
+
+    # - name: Provision and launch lb
+    #   ec2_instance:
+    #     name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
+    #     image_id: "ami-01e36b7901e884a10"
+    #     instance_type: "t3a.nano"
+    #     network:
+    #       assign_public_ip: true
+    #     key_name: "{{ aws_ssh_key_pair }}"
+    #     region: "{{ region }}"
+    #     security_group: ssh-http-https
+    #     state: running
+    #     tags:
+    #       mysidlabs: "1"
+    #       mysidlabs-tier: "ephemeral"
+    #       mysidlabs_owner: "{{ siduser }}"
+    #       mysidlabs_app_tier: "lb"
+    #       mysidlabs_type: "linux"
+    #     volumes:
+    #       - device_name: /dev/sda1
+    #         ebs:
+    #           delete_on_termination: true
+    #     vpc_subnet_id: "{{ vpc_subnet }}"
+    #     wait: true
+    #     wait_timeout: 120
+    #   loop:
+    #     - { tier: "lb" }
+    #   loop_control:
+    #     index_var: idx
+    #   register: ec2_result
 
     # Note that we're not doing anything with an inventory here.
     # In Lab1, we had the playbook also create the static 
