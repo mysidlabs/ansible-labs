@@ -13,7 +13,7 @@
     - name: "Ensure User Account Exists"
       win_user:
         name: "{{ siduser }}"
-        password: "{{ windows_password }}"
+        password: "{{ user_password }}"
         groups: Administrators
 
     - name: Install IIS Web-Server with sub features and management tools
