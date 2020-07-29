@@ -16,7 +16,6 @@
         instance_type: "{{ instance_type }}"
         network:
           assign_public_ip: true
-        key_name: "{{ aws_ssh_key_pair }}"
         region: "{{ region }}"
         security_group: "{{ security_group }}"
         tags:
