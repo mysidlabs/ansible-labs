@@ -31,7 +31,7 @@
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
-          mysidlabs_tier: "{{ item.tier }}"
+          mysidlabs_app_tier: "{{ item.tier }}"
         volumes:
           - device_name: /dev/sda1
             ebs:
