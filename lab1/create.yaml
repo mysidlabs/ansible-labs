@@ -30,6 +30,7 @@
               delete_on_termination: true
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
+        wait_timeout: 90
       register: ec2_result
 
     # Create an Ansible inventory file that contains
