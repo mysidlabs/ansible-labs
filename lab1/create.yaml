@@ -1,8 +1,4 @@
 ---
-
-# Step 1 - Create a single EC2 instance and boot it.
-# No configuration beyond a simple boot will be done.
-
 - name: "Create host instance"
   hosts: localhost
   gather_facts: false
@@ -10,43 +6,42 @@
   tasks:
 
     - name: "Provision and launch instances"
-      ec2_instance:
-        name: "{{ siduser }}-lab1"
-        image_id: "ami-01e36b7901e884a10"
-        instance_type: "{{ instance_type }}"
-        network:
-          assign_public_ip: true
-        key_name: "{{ aws_ssh_key_pair }}"
-        region: "{{ region }}"
-        security_group: "{{ security_group }}"
-        tags:
+      ec2:
+        assign_public_ip: true
+        group: "{{ security_group }}"
+        image: "ami-01e36b7901e884a10"
+        instance_tags:
+          Name: "{{ siduser }}-lab1"
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
-        volumes:
-          - device_name: /dev/sda1
-            ebs:
-              delete_on_termination: true
+        instance_type: "{{ instance_type }}"
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
-      register: ec2_result
+        volumes:
+        - device_name: /dev/sda1
+          delete_on_termination: true
+          volume_size: 8
+          volume_type: standard
+      register: result
 
-    # Create an Ansible inventory file that contains
-    # the public DNS name of the instance just created.
     - name: "Remove old host inventory file"
       file:
         path: "inv.txt"
         state: absent
+    
     - name: "Create hosts inventory file"
       lineinfile:
         create: true
         path: "inv.txt"
-        line: "{{ ec2_result.instances[0].public_dns_name }}"
+        line: "{{ result.instances[0].public_dns_name }}"
 
     - debug:
         msg: 
-        - "{{ ec2_result.instances[0].tags.Name }}"
-        - "Private IP: {{ ec2_result.instances[0].private_ip_address }}"
-        - "Public IP: {{ ec2_result.instances[0].public_ip_address }}"
+        - "{{ result.instances[0].tags.Name }}"
+        - "Private IP: {{ result.instances[0].private_ip }}"
+        - "Public IP: {{ result.instances[0].public_ip }}"
 ...

@@ -1,8 +1,4 @@
 ---
-
-# Step 1 - Create a collection of EC2 instances and boot
-# them.  No configuration beyond a simple boot will be done.
-
 - name: "Create host instances."
   hosts: localhost
   gather_facts: false
@@ -11,41 +7,38 @@
     siduser: "{{ lookup('env', 'MYSIDLABS_USER') }}"
 
   roles:
-    # Quick check to make sure the runtime env looks reasonable.
     - env_check
 
   tasks:
 
-    - name: Provision and launch instances
-      ec2_instance:
-        name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
-        image_id: "ami-01e36b7901e884a10"
-        instance_type: "{{ instance_type }}"
-        network:
-          assign_public_ip: true
-        key_name: "{{ aws_ssh_key_pair }}"
-        region: "{{ region }}"
-        security_group: "{{ security_group }}"
-        state: running
-        tags:
+    - name: "Provision and launch instances"
+      ec2:
+        assign_public_ip: true
+        group: "{{ security_group }}"
+        image: "ami-01e36b7901e884a10"
+        instance_tags:
+          Name: "{{ siduser }}-{{ item.tier }}-{{ idx }}"
           mysidlabs: "1"
           mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "{{ item.tier }}"
-        volumes:
-          - device_name: /dev/sda1
-            ebs:
-              delete_on_termination: true
+        instance_type: "{{ instance_type }}"
+        key_name: "{{ aws_ssh_key_pair }}"
+        region: "{{ region }}"
         vpc_subnet_id: "{{ vpc_subnet }}"
         wait: true
-        wait_timeout: 120
+        volumes:
+        - device_name: /dev/sda1
+          delete_on_termination: true
+          volume_size: 8
+          volume_type: standard
       loop:
         - { tier: "lb" }
         - { tier: "web" }
         - { tier: "web" }
       loop_control:
         index_var: idx
-      register: ec2_result
+      register: result
 
     # Note that we're not doing anything with an inventory here.
     # In Lab1, we had the playbook also create the static 
@@ -53,7 +46,7 @@
 
     - debug:
         msg: "{{ item.instances[0].tags.Name }} == Private IP: {{ item.instances[0].private_ip_address }}, Public IP: {{ item.instances[0].public_ip_address }}"
-      loop: "{{ ec2_result.results }}"
+      loop: "{{ result.results }}"
       loop_control:
         label: ""
 ...
