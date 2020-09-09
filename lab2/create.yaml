@@ -28,6 +28,7 @@
         security_group: "{{ security_group }}"
         tags:
           mysidlabs: "1"
+          mysidlabs-tier: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "{{ item.tier }}"
         volumes:
