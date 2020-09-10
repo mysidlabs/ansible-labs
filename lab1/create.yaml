@@ -13,7 +13,7 @@
         instance_tags:
           Name: "{{ siduser }}-lab1"
           mysidlabs: "1"
-          mysidlabs-tier: "ephemeral"
+          mysidlabs-cost: "ephemeral"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
         instance_type: "{{ instance_type }}"
