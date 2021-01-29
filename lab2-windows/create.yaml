@@ -29,8 +29,11 @@
         state: running
         tags:
           mysidlabs: "1"
-          mysidlabs-tier: "ephemeral"
+          mysidlabs-cost: "student"
+          mysidlabs-idle: "terminate"
           mysidlabs_owner: "{{ siduser }}"
+          mysidlabs_tier: "lab1"
+          mysidlabs-tier: "ephemeral"
           mysidlabs_app_tier: "{{ item.tier }}"
           mysidlabs_os_type: "windows"
         volumes:

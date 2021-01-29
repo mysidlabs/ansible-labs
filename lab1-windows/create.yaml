@@ -19,10 +19,13 @@
         region: "{{ region }}"
         security_group: "{{ security_group }}"
         tags:
+          Name: "{{ siduser }}-lab1"
           mysidlabs: "1"
-          mysidlabs-tier: "ephemeral"
+          mysidlabs-cost: "student"
+          mysidlabs-idle: "terminate"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
+          mysidlabs-tier: "ephemeral"
         volumes:
           - device_name: /dev/sda1
             ebs:
