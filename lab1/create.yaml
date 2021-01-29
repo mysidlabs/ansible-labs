@@ -14,7 +14,7 @@
           Name: "{{ siduser }}-lab1"
           mysidlabs: "1"
           mysidlabs-cost: "student"
-          mysidlabs-idle: "teminate"
+          mysidlabs-idle: "terminate"
           mysidlabs_owner: "{{ siduser }}"
           mysidlabs_tier: "lab1"
         instance_type: "{{ instance_type }}"
